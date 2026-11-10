@@ -1,0 +1,4 @@
+.env*
+.vercel
+img_fw
+node_modules

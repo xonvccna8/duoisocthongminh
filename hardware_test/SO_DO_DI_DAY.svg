@@ -1,0 +1,376 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1305" viewBox="0 0 1400 1305">
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #1f2933; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub   { font-size: 13px; fill: #52606d; }
+    .sec   { font-size: 15px; font-weight: 700; fill: #1565c0; }
+    .mt    { font-size: 14px; font-weight: 700; text-anchor: middle; }
+    .ms    { font-size: 11px; fill: #52606d; text-anchor: middle; }
+    .pin   { font-size: 11px; font-weight: 600; fill: #334e68; }
+    .note  { font-size: 11.5px; fill: #3e4c59; }
+    .warn  { font-size: 11.5px; font-weight: 700; fill: #c62828; }
+    .cap   { font-size: 13px; font-weight: 700; fill: #c2185b; }
+    .small { font-size: 10.5px; fill: #3e4c59; }
+    .fl    { font-size: 11px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+    .box   { fill: #f5f7fa; stroke: #486581; stroke-width: 1.5; }
+    .frame { fill: none; stroke: #bcccdc; stroke-width: 1.2; stroke-dasharray: 6 4; }
+    .w     { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .v12 { stroke: #d32f2f; } .v5 { stroke: #ef6c00; } .v33 { stroke: #8e24aa; } .gnd { stroke: #263238; }
+    .sda { stroke: #1565c0; } .scl { stroke: #2e7d32; } .uart { stroke: #00838f; }
+    .ctl { stroke: #c2185b; } .pir { stroke: #b7791f; } .spk { stroke: #757575; } .ld { stroke: #546e7a; }
+    .res { fill: #ffffff; stroke-width: 1.8; }
+  </style>
+
+  <rect width="1400" height="1305" fill="#ffffff"/>
+
+  <!-- ===================== TIÊU ĐỀ ===================== -->
+  <text x="700" y="38" class="title" text-anchor="middle">SƠ ĐỒ ĐI DÂY PHẦN CỨNG – HỆ THỐNG ĐUỔI SÓC THÔNG MINH</text>
+  <text x="700" y="60" class="sub" text-anchor="middle">Board điều khiển: Freenove ESP32-S3-WROOM CAM (N8R8) · camera OV2640 và khe thẻ nhớ có sẵn trên board</text>
+
+  <!-- ===================== ① KHỐI NGUỒN ===================== -->
+  <rect x="20" y="75" width="1360" height="230" rx="10" class="frame"/>
+  <text x="36" y="98" class="sec">① KHỐI NGUỒN</text>
+
+  <!-- Pin mặt trời -->
+  <rect x="40" y="115" width="150" height="80" rx="4" fill="#e8eaf6" stroke="#3949ab" stroke-width="1.5"/>
+  <path d="M77.5 115 V195 M115 115 V195 M152.5 115 V195 M40 155 H190" stroke="#c5cae9" stroke-width="1"/>
+  <text x="115" y="151" class="mt">PIN MẶT TRỜI</text>
+  <text x="115" y="169" class="ms" style="fill:#1f2933;font-weight:600">18V · 20W</text>
+  <path d="M190 135 H250" class="w v12"/>
+  <path d="M190 175 H250" class="w gnd"/>
+  <text x="220" y="127" class="ms">PV</text>
+
+  <!-- Bộ điều khiển sạc -->
+  <rect x="250" y="105" width="180" height="100" rx="8" class="box"/>
+  <text x="340" y="150" class="mt">BỘ ĐIỀU KHIỂN SẠC</text>
+  <text x="340" y="168" class="ms">(solar charge controller)</text>
+
+  <!-- Pin 12V -->
+  <path d="M310 205 V235" class="w v12"/>
+  <path d="M370 205 V235" class="w gnd"/>
+  <text x="340" y="224" class="ms">BAT</text>
+  <rect x="250" y="235" width="180" height="58" rx="8" fill="#fff8e1" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="340" y="256" class="mt">PIN 12V</text>
+  <text x="340" y="271" class="ms">3S 18650 + BMS 3S</text>
+  <text x="340" y="285" class="ms">hoặc ắc quy 12V 7Ah</text>
+
+  <!-- LOAD+ → cầu chì → công tắc → INA219 -->
+  <text x="450" y="127" class="ms">LOAD</text>
+  <path d="M430 135 H470" class="w v12"/>
+  <rect x="470" y="126" width="60" height="18" rx="9" fill="#ffffff" stroke="#d32f2f" stroke-width="1.8"/>
+  <path d="M478 135 H522" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="500" y="112" class="ms" style="fill:#1f2933;font-weight:600">CẦU CHÌ 3A</text>
+  <path d="M530 135 H581" class="w v12"/>
+  <circle cx="585" cy="135" r="4" fill="#ffffff" stroke="#263238" stroke-width="2"/>
+  <circle cx="635" cy="135" r="4" fill="#ffffff" stroke="#263238" stroke-width="2"/>
+  <path d="M588 132 L628 116" stroke="#263238" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="610" y="105" class="ms" style="fill:#1f2933;font-weight:600">CÔNG TẮC</text>
+  <path d="M639 135 H680" class="w v12"/>
+
+  <rect x="680" y="105" width="170" height="80" rx="8" class="box"/>
+  <text x="688" y="139" class="pin">VIN+</text>
+  <text x="842" y="139" class="pin" text-anchor="end">VIN−</text>
+  <text x="765" y="139" class="mt">INA219</text>
+  <text x="765" y="157" class="ms">đo áp &amp; dòng pin</text>
+  <text x="765" y="172" class="ms">(nối I2C: xem phần ②)</text>
+
+  <!-- LOAD− → GND -->
+  <path d="M430 175 H470" class="w gnd"/>
+  <g transform="translate(493,175)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <!-- BUS 12V -->
+  <path d="M850 135 H960" class="w v12"/>
+  <circle cx="920" cy="135" r="4.5" fill="#d32f2f"/>
+  <text x="885" y="125" class="ms" style="fill:#d32f2f;font-weight:700">BUS 12V</text>
+  <path d="M920 135 V240" class="w v12"/>
+  <g transform="translate(920,249)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#d32f2f"/><text class="fl" y="4">12V</text></g>
+  <text x="950" y="253" class="note">→ đèn LED (qua MOSFET 1)</text>
+
+  <!-- LM2596 -->
+  <rect x="960" y="105" width="160" height="80" rx="8" class="box"/>
+  <text x="1040" y="139" class="mt">LM2596 (3A)</text>
+  <text x="1040" y="157" class="ms">hạ áp 12V → 5.0V</text>
+  <text x="965" y="202" class="warn">⚠ Chỉnh ngõ ra 5.0V</text>
+  <text x="965" y="217" class="warn">trước khi cắm ESP32</text>
+
+  <!-- BUS 5V + tụ 1000µF -->
+  <path d="M1120 135 H1270" class="w v5"/>
+  <circle cx="1165" cy="135" r="4.5" fill="#ef6c00"/>
+  <path d="M1165 135 V158" class="w v5"/>
+  <path d="M1153 158 H1177 M1153 165 H1177" stroke="#263238" stroke-width="2.5"/>
+  <path d="M1165 165 V182" class="w gnd"/>
+  <g transform="translate(1165,191)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <text x="1183" y="166" class="small">1000µF</text>
+  <g transform="translate(1303,135)"><rect x="-33" y="-9" width="66" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">BUS 5V</text></g>
+  <text x="1370" y="166" class="small" text-anchor="end">→ ESP32, DFPlayer,</text>
+  <text x="1370" y="180" class="small" text-anchor="end">PIR, phun sương</text>
+
+  <text x="460" y="289" class="note" style="font-weight:700;fill:#1f2933">★ Tất cả GND nối chung một điểm: âm pin, LM2596, ESP32, MOSFET và các module</text>
+
+  <!-- ===================== ② ĐẤU NỐI VỚI ESP32-S3 ===================== -->
+  <rect x="20" y="320" width="1360" height="805" rx="10" class="frame"/>
+  <text x="36" y="343" class="sec">② ĐẤU NỐI CÁC MODULE VỚI ESP32-S3</text>
+
+  <!-- ESP32-S3 -->
+  <rect x="560" y="410" width="280" height="520" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="700" y="457" text-anchor="middle" style="font-size:16px;font-weight:700;fill:#0d47a1">ESP32-S3-WROOM CAM</text>
+  <text x="700" y="473" class="ms">Freenove · N8R8 (8MB flash, 8MB PSRAM)</text>
+
+  <!-- chân nguồn trên đỉnh -->
+  <text x="620" y="430" class="pin" text-anchor="middle">5V</text>
+  <text x="700" y="430" class="pin" text-anchor="middle">3V3</text>
+  <text x="780" y="430" class="pin" text-anchor="middle">GND</text>
+  <path d="M620 410 V383" class="w v5"/>
+  <path d="M700 410 V383" class="w v33"/>
+  <path d="M780 410 V383" class="w gnd"/>
+  <g transform="translate(620,374)"><rect x="-30" y="-9" width="60" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">BUS 5V</text></g>
+  <g transform="translate(700,374)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#8e24aa"/><text class="fl" y="4">3V3</text></g>
+  <g transform="translate(780,374)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <!-- nhãn chân trái / phải -->
+  <text x="570" y="504" class="pin">GPIO 14</text>
+  <text x="570" y="644" class="pin">GPIO 21 · SDA</text>
+  <text x="570" y="684" class="pin">GPIO 47 · SCL</text>
+  <text x="830" y="489" class="pin" text-anchor="end">GPIO 42 · TX</text>
+  <text x="830" y="529" class="pin" text-anchor="end">GPIO 41 · RX</text>
+  <text x="830" y="779" class="pin" text-anchor="end">GPIO 1</text>
+  <text x="830" y="824" class="pin" text-anchor="end">GPIO 48</text>
+
+  <!-- linh kiện có sẵn trên board -->
+  <rect x="610" y="545" width="180" height="62" rx="6" fill="#ffffff" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="700" y="571" text-anchor="middle" style="font-size:12px;font-weight:700">Camera OV2640</text>
+  <text x="700" y="589" class="ms">có sẵn – không cần đi dây</text>
+  <rect x="610" y="700" width="180" height="62" rx="6" fill="#ffffff" stroke="#90a4ae" stroke-dasharray="4 3"/>
+  <text x="700" y="726" text-anchor="middle" style="font-size:12px;font-weight:700">Khe thẻ microSD</text>
+  <text x="700" y="744" class="ms">có sẵn – lưu ảnh, nhật ký CSV</text>
+
+  <text x="700" y="868" class="warn" text-anchor="middle">⚠ Không dùng các chân:</text>
+  <text x="700" y="884" class="small" text-anchor="middle">4–13, 15–18 camera · 38–40 thẻ SD</text>
+  <text x="700" y="899" class="small" text-anchor="middle">35–37 PSRAM · 19–20 USB · 43–44 Serial</text>
+  <text x="700" y="914" class="small" text-anchor="middle">0, 45, 46 (chân strapping)</text>
+
+  <!-- PIR HC-SR501 -->
+  <rect x="130" y="455" width="240" height="95" rx="8" class="box"/>
+  <text x="250" y="492" class="mt">PIR HC-SR501</text>
+  <text x="250" y="509" class="ms">phát hiện chuyển động</text>
+  <text x="250" y="524" class="ms">(hoặc AM312 – cấp 3V3)</text>
+  <text x="138" y="484" class="pin">VCC</text>
+  <text x="138" y="529" class="pin">GND</text>
+  <text x="362" y="504" class="pin" text-anchor="end">OUT</text>
+  <path d="M130 480 H100" class="w v5"/>
+  <path d="M130 525 H100" class="w gnd"/>
+  <g transform="translate(77,480)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">5V</text></g>
+  <g transform="translate(77,525)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <path d="M370 500 H560" class="w pir"/>
+  <text x="465" y="492" class="small" text-anchor="middle">OUT → GPIO 14 (3.3V, nối thẳng)</text>
+  <text x="130" y="570" class="note">Jumper H · Tx vặn hết ngược (~3s) · Sx để giữa</text>
+  <text x="130" y="586" class="note">Chờ ~60s sau khi cấp điện để PIR ổn định</text>
+
+  <!-- Bus I2C -->
+  <path d="M560 640 H430 V925" class="w sda"/>
+  <path d="M560 680 H480 V955" class="w scl"/>
+  <text x="520" y="633" class="small" text-anchor="middle" style="fill:#1565c0;font-weight:700">SDA</text>
+  <text x="520" y="673" class="small" text-anchor="middle" style="fill:#2e7d32;font-weight:700">SCL</text>
+
+  <!-- DS3231 -->
+  <rect x="130" y="700" width="240" height="80" rx="8" class="box"/>
+  <text x="250" y="733" class="mt">RTC DS3231</text>
+  <text x="250" y="752" class="ms">đồng hồ · 0x68 · pin CR2032</text>
+  <text x="138" y="729" class="pin">VCC</text>
+  <text x="138" y="759" class="pin">GND</text>
+  <text x="362" y="729" class="pin" text-anchor="end">SDA</text>
+  <text x="362" y="759" class="pin" text-anchor="end">SCL</text>
+  <path d="M130 725 H100" class="w v33"/>
+  <path d="M130 755 H100" class="w gnd"/>
+  <g transform="translate(77,725)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#8e24aa"/><text class="fl" y="4">3V3</text></g>
+  <g transform="translate(77,755)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <path d="M370 725 H430" class="w sda"/>
+  <path d="M370 755 H424 a6 6 0 0 1 12 0 H480" class="w scl"/>
+  <circle cx="430" cy="725" r="4.5" fill="#1565c0"/>
+  <circle cx="480" cy="755" r="4.5" fill="#2e7d32"/>
+
+  <!-- BH1750 -->
+  <rect x="130" y="800" width="240" height="80" rx="8" class="box"/>
+  <text x="250" y="833" class="mt">BH1750 (GY-302)</text>
+  <text x="250" y="852" class="ms">ánh sáng · 0x23 · ADDR nối GND</text>
+  <text x="138" y="829" class="pin">VCC</text>
+  <text x="138" y="859" class="pin">GND</text>
+  <text x="362" y="829" class="pin" text-anchor="end">SDA</text>
+  <text x="362" y="859" class="pin" text-anchor="end">SCL</text>
+  <path d="M130 825 H100" class="w v33"/>
+  <path d="M130 855 H100" class="w gnd"/>
+  <g transform="translate(77,825)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#8e24aa"/><text class="fl" y="4">3V3</text></g>
+  <g transform="translate(77,855)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <path d="M370 825 H430" class="w sda"/>
+  <path d="M370 855 H424 a6 6 0 0 1 12 0 H480" class="w scl"/>
+  <circle cx="430" cy="825" r="4.5" fill="#1565c0"/>
+  <circle cx="480" cy="855" r="4.5" fill="#2e7d32"/>
+
+  <!-- INA219 (I2C) -->
+  <rect x="130" y="900" width="240" height="80" rx="8" class="box"/>
+  <text x="250" y="933" class="mt">INA219</text>
+  <text x="250" y="952" class="ms">đo pin · 0x40 · VIN± ở khối ①</text>
+  <text x="138" y="929" class="pin">VCC</text>
+  <text x="138" y="959" class="pin">GND</text>
+  <text x="362" y="929" class="pin" text-anchor="end">SDA</text>
+  <text x="362" y="959" class="pin" text-anchor="end">SCL</text>
+  <path d="M130 925 H100" class="w v33"/>
+  <path d="M130 955 H100" class="w gnd"/>
+  <g transform="translate(77,925)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#8e24aa"/><text class="fl" y="4">3V3</text></g>
+  <g transform="translate(77,955)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <path d="M370 925 H430" class="w sda"/>
+  <path d="M370 955 H424 a6 6 0 0 1 12 0 H480" class="w scl"/>
+
+  <text x="130" y="1005" class="note">Các module I2C đã có sẵn trở kéo lên – không cần gắn thêm.</text>
+  <text x="130" y="1021" class="note">Dây I2C ngắn dưới 30 cm; dài hơn thì xoắn SDA với GND.</text>
+  <text x="130" y="1037" class="note">Quét I2C phải thấy: 0x23 (BH1750), 0x40 (INA219), 0x57, 0x68 (DS3231).</text>
+
+  <!-- DFPlayer Mini + loa -->
+  <rect x="1000" y="445" width="200" height="120" rx="8" class="box"/>
+  <text x="1100" y="500" class="mt">DFPlayer Mini</text>
+  <text x="1100" y="518" class="ms">phát MP3 · khuếch đại 3W</text>
+  <text x="1100" y="533" class="ms">thẻ nhớ FAT32</text>
+  <text x="1050" y="460" class="pin" text-anchor="middle">VCC</text>
+  <text x="1150" y="460" class="pin" text-anchor="middle">GND</text>
+  <text x="1008" y="489" class="pin">RX</text>
+  <text x="1008" y="529" class="pin">TX</text>
+  <text x="1192" y="489" class="pin" text-anchor="end">SPK_1</text>
+  <text x="1192" y="529" class="pin" text-anchor="end">SPK_2</text>
+
+  <path d="M1050 445 V420" class="w v5"/>
+  <path d="M1150 445 V420" class="w gnd"/>
+  <g transform="translate(1050,411)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">5V</text></g>
+  <g transform="translate(1150,411)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+  <!-- tụ 470µF sát VCC–GND -->
+  <path d="M1050 432 H1094 M1100 432 H1150" stroke="#546e7a" stroke-width="1.8"/>
+  <path d="M1094 424 V440 M1100 424 V440" stroke="#263238" stroke-width="2.2"/>
+  <circle cx="1050" cy="432" r="3.5" fill="#ef6c00"/>
+  <circle cx="1150" cy="432" r="3.5" fill="#263238"/>
+  <text x="1097" y="418" class="small" text-anchor="middle">470µF</text>
+
+  <!-- UART -->
+  <path d="M840 485 H880 M930 485 H1000" class="w uart"/>
+  <rect x="880" y="478" width="50" height="14" rx="2" class="res" stroke="#00838f"/>
+  <text x="905" y="471" class="small" text-anchor="middle" style="font-weight:700">1kΩ</text>
+  <path d="M840 525 H1000" class="w uart"/>
+  <text x="965" y="541" class="small" text-anchor="middle">TX → GPIO 41</text>
+
+  <!-- Loa -->
+  <path d="M1200 485 H1250 M1200 525 H1250" class="w spk"/>
+  <rect x="1250" y="480" width="18" height="50" fill="#eceff1" stroke="#455a64" stroke-width="1.5"/>
+  <polygon points="1268,485 1298,460 1298,550 1268,525" fill="#eceff1" stroke="#455a64" stroke-width="1.5"/>
+  <path d="M1308 488 q10 17 0 34 M1318 478 q17 27 0 54" fill="none" stroke="#90a4ae" stroke-width="1.8" stroke-linecap="round"/>
+  <text x="1283" y="576" text-anchor="middle" style="font-size:12px;font-weight:700">LOA 3W</text>
+  <text x="1283" y="591" class="ms">4–8Ω</text>
+
+  <text x="1000" y="590" class="warn">⚠ SPK_1/SPK_2 KHÔNG nối GND</text>
+  <text x="1000" y="606" class="note">Tụ 470µF + 100nF sát chân VCC–GND</text>
+  <text x="1000" y="622" class="note">File 0001.mp3, 0002.mp3… ở thư mục gốc</text>
+
+  <!-- MOSFET 1: đèn LED 12V (GPIO 1) -->
+  <path d="M840 775 H880 M930 775 H1020" class="w ctl"/>
+  <rect x="880" y="768" width="50" height="14" rx="2" class="res" stroke="#c2185b"/>
+  <text x="905" y="762" class="small" text-anchor="middle" style="font-weight:700">220Ω</text>
+  <circle cx="970" cy="775" r="4" fill="#c2185b"/>
+  <path d="M970 775 V795" class="w ctl"/>
+  <rect x="963" y="795" width="14" height="40" rx="2" class="res" stroke="#263238"/>
+  <text x="957" y="819" class="small" text-anchor="end" style="font-weight:700">10kΩ</text>
+  <path d="M970 835 V850" class="w gnd"/>
+  <g transform="translate(970,859)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <rect x="1020" y="750" width="80" height="50" rx="6" fill="#fce4ec" stroke="#c2185b" stroke-width="1.8"/>
+  <text x="1060" y="779" text-anchor="middle" style="font-size:11px;font-weight:700">IRLZ44N</text>
+  <text x="1014" y="769" class="small" text-anchor="end" style="font-weight:700">G</text>
+  <text x="1053" y="748" class="small" text-anchor="end" style="font-weight:700">D</text>
+  <text x="1067" y="818" class="small" style="font-weight:700">S</text>
+  <path d="M1060 800 V835" class="w gnd"/>
+  <g transform="translate(1060,844)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <path d="M1060 750 V730" class="w ld"/>
+  <rect x="1020" y="690" width="80" height="40" rx="6" fill="#fffde7" stroke="#f9a825" stroke-width="1.8"/>
+  <text x="1060" y="707" text-anchor="middle" style="font-size:11px;font-weight:700">ĐÈN LED</text>
+  <text x="1060" y="721" class="small" text-anchor="middle">12V 5–10W</text>
+  <path d="M1060 690 V665" class="w v12"/>
+  <g transform="translate(1060,656)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#d32f2f"/><text class="fl" y="4">12V</text></g>
+  <!-- diode chống dòng ngược (catot về phía +) -->
+  <path d="M1060 675 H1140 V703 M1140 717 V740 H1060" class="w ld" style="stroke-width:1.8"/>
+  <polygon points="1132,717 1148,717 1140,703" fill="#546e7a"/>
+  <path d="M1131 703 H1149" stroke="#263238" stroke-width="2.5"/>
+  <circle cx="1060" cy="675" r="3.5" fill="#d32f2f"/>
+  <circle cx="1060" cy="740" r="3.5" fill="#546e7a"/>
+  <text x="1153" y="714" class="small">1N5819</text>
+
+  <text x="1230" y="707" class="cap">MOSFET 1</text>
+  <text x="1230" y="724" class="note" style="font-weight:700">Đèn LED 12V</text>
+  <text x="1230" y="740" class="note">nguồn tải: BUS 12V</text>
+  <text x="1230" y="756" class="note">LED &gt; 5W: gắn tản nhiệt</text>
+
+  <!-- MOSFET 2: phun sương 5V (GPIO 48) -->
+  <path d="M840 820 H865 V1015 H905 M955 1015 H1045" class="w ctl"/>
+  <rect x="905" y="1008" width="50" height="14" rx="2" class="res" stroke="#c2185b"/>
+  <text x="930" y="1002" class="small" text-anchor="middle" style="font-weight:700">220Ω</text>
+  <circle cx="995" cy="1015" r="4" fill="#c2185b"/>
+  <path d="M995 1015 V1035" class="w ctl"/>
+  <rect x="988" y="1035" width="14" height="40" rx="2" class="res" stroke="#263238"/>
+  <text x="982" y="1059" class="small" text-anchor="end" style="font-weight:700">10kΩ</text>
+  <path d="M995 1075 V1090" class="w gnd"/>
+  <g transform="translate(995,1099)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <rect x="1045" y="990" width="80" height="50" rx="6" fill="#fce4ec" stroke="#c2185b" stroke-width="1.8"/>
+  <text x="1085" y="1019" text-anchor="middle" style="font-size:11px;font-weight:700">IRLZ44N</text>
+  <text x="1039" y="1009" class="small" text-anchor="end" style="font-weight:700">G</text>
+  <text x="1078" y="988" class="small" text-anchor="end" style="font-weight:700">D</text>
+  <text x="1092" y="1058" class="small" style="font-weight:700">S</text>
+  <path d="M1085 1040 V1075" class="w gnd"/>
+  <g transform="translate(1085,1084)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#263238"/><text class="fl" y="4">GND</text></g>
+
+  <path d="M1085 990 V970" class="w ld"/>
+  <rect x="1045" y="930" width="80" height="40" rx="6" fill="#e0f7fa" stroke="#00acc1" stroke-width="1.8"/>
+  <text x="1085" y="947" text-anchor="middle" style="font-size:10.5px;font-weight:700">PHUN SƯƠNG</text>
+  <text x="1085" y="961" class="small" text-anchor="middle">5V siêu âm</text>
+  <path d="M1085 930 V905" class="w v5"/>
+  <g transform="translate(1085,896)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">5V</text></g>
+  <path d="M1085 915 H1165 V943 M1165 957 V980 H1085" class="w ld" style="stroke-width:1.8"/>
+  <polygon points="1157,957 1173,957 1165,943" fill="#546e7a"/>
+  <path d="M1156 943 H1174" stroke="#263238" stroke-width="2.5"/>
+  <circle cx="1085" cy="915" r="3.5" fill="#ef6c00"/>
+  <circle cx="1085" cy="980" r="3.5" fill="#546e7a"/>
+  <text x="1178" y="954" class="small">1N5819</text>
+
+  <text x="1230" y="947" class="cap">MOSFET 2</text>
+  <text x="1230" y="964" class="note" style="font-weight:700">Phun sương 5V</text>
+  <text x="1230" y="980" class="note">nguồn tải: BUS 5V</text>
+  <text x="1230" y="996" class="note">thủ công tự tắt sau 15s</text>
+
+  <!-- ===================== ③ CHÚ THÍCH & LƯU Ý ===================== -->
+  <rect x="20" y="1140" width="1360" height="150" rx="10" class="frame"/>
+  <text x="36" y="1163" class="sec">③ CHÚ THÍCH MÀU DÂY</text>
+  <text x="800" y="1163" class="sec">LƯU Ý KHI LẮP RÁP</text>
+
+  <g>
+    <path d="M40 1190 h34" class="w v12"/><text x="82" y="1194" class="note">Nguồn 12V (+)</text>
+    <path d="M230 1190 h34" class="w v5"/><text x="272" y="1194" class="note">Nguồn 5V</text>
+    <path d="M420 1190 h34" class="w v33"/><text x="462" y="1194" class="note">Nguồn 3,3V</text>
+    <path d="M40 1215 h34" class="w gnd"/><text x="82" y="1219" class="note">GND (−)</text>
+    <path d="M230 1215 h34" class="w sda"/><text x="272" y="1219" class="note">I2C – SDA</text>
+    <path d="M420 1215 h34" class="w scl"/><text x="462" y="1219" class="note">I2C – SCL</text>
+    <path d="M40 1240 h34" class="w uart"/><text x="82" y="1244" class="note">UART (DFPlayer)</text>
+    <path d="M230 1240 h34" class="w ctl"/><text x="272" y="1244" class="note">Điều khiển MOSFET</text>
+    <path d="M420 1240 h34" class="w pir"/><text x="462" y="1244" class="note">Tín hiệu PIR</text>
+    <path d="M600 1190 h34" class="w ld"/><text x="642" y="1194" class="note">Dây tải / diode</text>
+    <path d="M600 1215 h34" class="w spk"/><text x="642" y="1219" class="note">Dây loa</text>
+    <circle cx="617" cy="1240" r="4.5" fill="#263238"/><text x="642" y="1244" class="note">Điểm nối dây</text>
+
+    <g transform="translate(63,1268)"><rect x="-23" y="-9" width="46" height="18" rx="4" fill="#ef6c00"/><text class="fl" y="4">5V</text></g>
+    <text x="96" y="1272" class="note">Ô nhãn: mọi điểm cùng nhãn (12V, 5V, 3V3, GND) được nối chung với nhau</text>
+    <path d="M600 1268 h11 a6 6 0 0 1 12 0 h11 M617 1257 V1279" class="w gnd" style="stroke-width:2"/>
+    <text x="642" y="1272" class="note">Dây vắt qua: không nối</text>
+  </g>
+
+  <text x="800" y="1186" class="note">1. Tất cả GND nối chung một điểm; GND của INA219 phải chung với âm pin.</text>
+  <text x="800" y="1202" class="note">2. Không cấp cùng lúc USB và 5V từ LM2596: khi nạp code qua USB, rút dây 5V (giữ GND).</text>
+  <text x="800" y="1218" class="note">3. MOSFET phải là loại logic-level (IRLZ44N / AO3400), KHÔNG dùng IRF520.</text>
+  <text x="800" y="1234" class="note">4. Trở 10kΩ kéo Gate xuống GND để đèn và phun sương không tự bật lúc khởi động.</text>
+  <text x="800" y="1250" class="note">5. Dây 12V cho đèn LED đi thẳng từ BUS 12V, tiết diện ≥ 0,5 mm², không đi qua board.</text>
+  <text x="800" y="1266" class="note">6. Module phun sương có nút bấm: hàn nối tắt nút để module tự chạy khi có điện.</text>
+</svg>

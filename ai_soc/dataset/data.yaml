@@ -1,0 +1,6 @@
+path: D:/DU AN KHKT 2026-2027/DUANTHANHLAMDONG/ai_soc/dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: soc

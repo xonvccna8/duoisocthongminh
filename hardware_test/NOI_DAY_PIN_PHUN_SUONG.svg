@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1130" viewBox="0 0 1400 1130">
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #1f2933; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub   { font-size: 14px; fill: #52606d; }
+    .mt    { font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .ms    { font-size: 12px; fill: #52606d; text-anchor: middle; }
+    .wt    { font-size: 14px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+    .pin   { font-size: 13px; font-weight: 700; fill: #334e68; }
+    .pinw  { font-size: 13px; font-weight: 700; fill: #ffe082; }
+    .rail  { font-size: 14px; font-weight: 800; }
+    .row   { font-size: 14px; fill: #1f2933; }
+    .warn  { font-size: 13.5px; font-weight: 700; fill: #c62828; }
+    .w     { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .red { stroke: #d32f2f; } .blk { stroke: #212121; } .ctl { stroke: #c2185b; }
+    .res   { fill: #fff3e0; stroke: #6d4c41; stroke-width: 2; }
+    .badge circle { fill: #ffffff; stroke: #1f2933; stroke-width: 2; }
+    .badge text { font-size: 13px; font-weight: 800; text-anchor: middle; }
+  </style>
+
+  <rect width="1400" height="1130" fill="#ffffff"/>
+  <text x="40" y="46" class="title">CÁCH NỐI DÂY: PIN 3,7V → MẠCH SẠC 5V 2A → PHUN SƯƠNG + ESP32</text>
+  <text x="40" y="72" class="sub">Hàn lần lượt theo số 1 → 13 (bảng bên dưới). Dây ĐỎ = dương (+), dây ĐEN = âm (GND). Áp dụng cho mạch sạc có ngõ ra OUT 5V.</text>
+
+  <!-- ===== PIN ===== -->
+  <rect x="90" y="155" width="40" height="15" rx="3" fill="#90a4ae"/>
+  <rect x="50" y="170" width="120" height="260" rx="18" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="110" y="198" class="mt" style="fill:#d32f2f;font-size:22px">+</text>
+  <text x="110" y="270" class="mt">PIN</text>
+  <text x="110" y="292" class="mt">3,7V</text>
+  <text x="110" y="312" class="ms">10000mAh</text>
+  <text x="110" y="420" class="mt" style="font-size:24px">−</text>
+
+  <path d="M110 155V130H230V230H262" class="w red"/>
+  <path d="M110 430V460H230V350H262" class="w blk"/>
+
+  <!-- ===== MẠCH SẠC ===== -->
+  <rect x="260" y="180" width="220" height="220" rx="10" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="370" y="275" class="wt">MẠCH SẠC</text>
+  <text x="370" y="296" class="wt">5V 2A</text>
+  <circle cx="270" cy="230" r="7" fill="#ffca28"/><text x="284" y="235" class="pinw">B+</text>
+  <circle cx="270" cy="350" r="7" fill="#ffca28"/><text x="284" y="355" class="pinw">B−</text>
+  <circle cx="470" cy="230" r="7" fill="#ffca28"/><text x="456" y="235" class="pinw" text-anchor="end">OUT+</text>
+  <circle cx="470" cy="350" r="7" fill="#ffca28"/><text x="456" y="355" class="pinw" text-anchor="end">OUT−</text>
+  <rect x="345" y="390" width="50" height="16" rx="4" fill="#9e9e9e"/>
+  <text x="370" y="428" class="ms">↑ cổng sạc: cắm sạc điện thoại</text>
+  <text x="370" y="444" class="ms">vào đây để sạc pin</text>
+
+  <!-- ===== CÔNG TẮC ===== -->
+  <path d="M478 230H540" class="w red"/>
+  <rect x="540" y="205" width="80" height="50" rx="8" fill="#ffffff" stroke="#486581" stroke-width="2"/>
+  <text x="580" y="235" class="ms" style="font-weight:700;fill:#1f2933">CÔNG TẮC</text>
+  <path d="M620 230H660V200" class="w red"/>
+
+  <!-- ===== HAI HÀNG NGUỒN ===== -->
+  <path d="M660 200H1370" class="w red" style="stroke-width:8"/>
+  <text x="880" y="185" class="rail" style="fill:#d32f2f">HÀNG +5V (dây to / đường thiếc dài trên PCB)</text>
+  <path d="M478 350H520V830H1370" class="w blk"/>
+  <path d="M520 830H1370" class="w blk" style="stroke-width:8"/>
+  <text x="880" y="858" class="rail">HÀNG GND (dây to / đường thiếc dài trên PCB)</text>
+
+  <!-- Tụ 1000µF -->
+  <path d="M700 200V470" class="w red"/>
+  <rect x="682" y="470" width="36" height="64" rx="7" fill="#1565c0"/>
+  <rect x="708" y="470" width="10" height="64" fill="#90caf9"/>
+  <path d="M700 534V830" class="w blk"/>
+  <text x="672" y="486" class="pin" style="fill:#d32f2f" text-anchor="end">chân +</text>
+  <text x="672" y="507" class="pin" text-anchor="end">TỤ 1000µF</text>
+  <text x="672" y="530" class="pin" text-anchor="end">chân − (vạch)</text>
+  <circle cx="700" cy="200" r="6" fill="#d32f2f"/>
+  <circle cx="700" cy="830" r="6" fill="#212121"/>
+
+  <!-- ===== ESP32 ===== -->
+  <path d="M820 200V330" class="w red"/>
+  <circle cx="820" cy="200" r="6" fill="#d32f2f"/>
+  <rect x="780" y="330" width="200" height="260" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="820" y="352" class="pin" text-anchor="middle">5V</text>
+  <text x="900" y="580" class="pin" text-anchor="middle">GND</text>
+  <text x="970" y="525" class="pin" text-anchor="end">GPIO48</text>
+  <text x="880" y="440" class="mt">ESP32-S3 CAM</text>
+  <text x="880" y="460" class="ms">(các dây cảm biến, loa</text>
+  <text x="880" y="476" class="ms">giữ như sơ đồ cũ)</text>
+  <path d="M900 590V830" class="w blk"/>
+  <circle cx="900" cy="830" r="6" fill="#212121"/>
+
+  <!-- GPIO48 → 220Ω → G -->
+  <path d="M980 520H1010" class="w ctl"/>
+  <rect x="1010" y="510" width="56" height="20" rx="4" class="res"/>
+  <text x="1038" y="502" class="pin" text-anchor="middle">220Ω</text>
+  <path d="M1066 520H1202" class="w ctl"/>
+  <circle cx="1120" cy="520" r="6" fill="#c2185b"/>
+  <path d="M1120 520V580" class="w ctl"/>
+  <rect x="1110" y="580" width="20" height="56" rx="4" class="res"/>
+  <text x="1138" y="614" class="pin">10kΩ</text>
+  <path d="M1120 636V830" class="w blk"/>
+  <circle cx="1120" cy="830" r="6" fill="#212121"/>
+
+  <!-- ===== MOSFET ===== -->
+  <rect x="1200" y="470" width="110" height="100" rx="10" fill="#fce4ec" stroke="#c2185b" stroke-width="2.5"/>
+  <text x="1210" y="525" class="pin">G</text>
+  <text x="1255" y="490" class="pin" text-anchor="middle">D</text>
+  <text x="1255" y="562" class="pin" text-anchor="middle">S</text>
+  <text x="1262" y="518" class="mt" style="font-size:13px">MOSFET</text>
+  <text x="1262" y="536" class="ms">IRLZ44N</text>
+  <path d="M1255 570V830" class="w blk"/>
+  <circle cx="1255" cy="830" r="6" fill="#212121"/>
+
+  <!-- ===== MẠCH PHUN SƯƠNG ===== -->
+  <rect x="1180" y="270" width="170" height="110" rx="10" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="1265" y="318" class="wt" style="font-size:13px">MẠCH PHUN SƯƠNG</text>
+  <text x="1265" y="337" class="wt" style="font-size:12px">(Type-C)</text>
+  <path d="M1220 270V200" class="w red"/>
+  <circle cx="1220" cy="200" r="6" fill="#d32f2f"/>
+  <path d="M1255 380V470" class="w blk"/>
+  <text x="1204" y="246" class="pin" style="fill:#d32f2f" text-anchor="end">dây ĐỎ cáp Type-C</text>
+  <text x="1236" y="452" class="pin" text-anchor="end">dây ĐEN cáp Type-C</text>
+  <path d="M1350 350C1370 360 1372 400 1360 412" fill="none" stroke="#616161" stroke-width="2"/>
+  <circle cx="1360" cy="428" r="16" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="2"/>
+  <text x="1360" y="460" class="ms">đĩa gốm</text>
+
+  <!-- ===== Hình chân MOSFET thật ===== -->
+  <text x="140" y="555" class="mt" style="font-size:13px">IRLZ44N nhìn từ mặt có chữ</text>
+  <rect x="95" y="570" width="90" height="32" rx="4" fill="#b0bec5"/>
+  <circle cx="140" cy="586" r="8" fill="#ffffff"/>
+  <rect x="95" y="600" width="90" height="72" rx="4" fill="#263238"/>
+  <text x="140" y="642" class="wt" style="font-size:12px">IRLZ44N</text>
+  <path d="M115 672V740M140 672V740M165 672V740" stroke="#90a4ae" stroke-width="6" stroke-linecap="round"/>
+  <text x="115" y="762" class="pin" text-anchor="middle">G</text>
+  <text x="140" y="762" class="pin" text-anchor="middle">D</text>
+  <text x="165" y="762" class="pin" text-anchor="middle">S</text>
+  <text x="115" y="780" class="ms">trái</text>
+  <text x="140" y="780" class="ms">giữa</text>
+  <text x="165" y="780" class="ms">phải</text>
+
+  <!-- ===== Số thứ tự dây ===== -->
+  <g class="badge">
+    <circle cx="170" cy="130" r="14"/><text x="170" y="135">1</text>
+    <circle cx="170" cy="460" r="14"/><text x="170" y="465">2</text>
+    <circle cx="510" cy="230" r="14"/><text x="510" y="235">3</text>
+    <circle cx="640" cy="230" r="14"/><text x="640" y="235">4</text>
+    <circle cx="520" cy="600" r="14"/><text x="520" y="605">5</text>
+    <circle cx="700" cy="380" r="14"/><text x="700" y="385">6</text>
+    <circle cx="820" cy="268" r="14"/><text x="820" y="273">7</text>
+    <circle cx="900" cy="710" r="14"/><text x="900" y="715">8</text>
+    <circle cx="1220" cy="236" r="14"/><text x="1220" y="241">9</text>
+    <circle cx="1255" cy="425" r="14"/><text x="1255" y="430">10</text>
+    <circle cx="1255" cy="700" r="14"/><text x="1255" y="705">11</text>
+    <circle cx="1165" cy="520" r="14"/><text x="1165" y="525">12</text>
+    <circle cx="1120" cy="730" r="14"/><text x="1120" y="735">13</text>
+  </g>
+
+  <!-- ===== Bảng từng dây ===== -->
+  <line x1="40" y1="880" x2="1360" y2="880" stroke="#d9e2ec" stroke-width="1.5"/>
+  <g class="row">
+    <text x="40" y="910"><tspan font-weight="800">1.</tspan>  Cực (+) của pin  →  chân B+ của mạch sạc</text>
+    <text x="40" y="936"><tspan font-weight="800">2.</tspan>  Cực (−) của pin  →  chân B− của mạch sạc</text>
+    <text x="40" y="962"><tspan font-weight="800">3.</tspan>  OUT+ của mạch sạc  →  một chân của công tắc</text>
+    <text x="40" y="988"><tspan font-weight="800">4.</tspan>  Chân còn lại của công tắc  →  hàng +5V</text>
+    <text x="40" y="1014"><tspan font-weight="800">5.</tspan>  OUT− của mạch sạc  →  hàng GND</text>
+    <text x="40" y="1040"><tspan font-weight="800">6.</tspan>  Tụ 1000µF: chân (+) vào hàng +5V, chân có vạch (−) vào hàng GND</text>
+    <text x="40" y="1066"><tspan font-weight="800">7.</tspan>  Hàng +5V  →  chân 5V của ESP32</text>
+
+    <text x="720" y="910"><tspan font-weight="800">8.</tspan>  Chân GND của ESP32  →  hàng GND</text>
+    <text x="720" y="936"><tspan font-weight="800">9.</tspan>  Hàng +5V  →  dây ĐỎ của cáp Type-C phun sương</text>
+    <text x="720" y="962"><tspan font-weight="800">10.</tspan>  Dây ĐEN của cáp Type-C  →  chân D (giữa) MOSFET</text>
+    <text x="720" y="988"><tspan font-weight="800">11.</tspan>  Chân S (phải) MOSFET  →  hàng GND</text>
+    <text x="720" y="1014"><tspan font-weight="800">12.</tspan>  GPIO48 ESP32  →  điện trở 220Ω  →  chân G (trái) MOSFET</text>
+    <text x="720" y="1040"><tspan font-weight="800">13.</tspan>  Điện trở 10kΩ: một đầu vào chân G, đầu kia vào hàng GND</text>
+    <text x="720" y="1066">DFPlayer: VCC → hàng +5V, GND → hàng GND (như sơ đồ cũ)</text>
+  </g>
+  <text x="40" y="1104" class="warn">⚠ Hàn xong dây 1–6 thì DỪNG: bật công tắc, đo giữa hàng +5V và hàng GND phải ra 5,0–5,2V rồi mới nối ESP32. Nếu chỉ ra 3,7–4,2V là mạch sạc không tăng áp.</text>
+</svg>

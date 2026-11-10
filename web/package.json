@@ -1,0 +1,12 @@
+{
+  "name": "duoi-soc-thong-minh",
+  "private": true,
+  "description": "Web Đuổi Sóc Thông Minh: giao diện tĩnh + API xem từ xa và AI nhận diện sóc (web/api)",
+  "dependencies": {
+    "@tensorflow-models/mobilenet": "2.1.1",
+    "@tensorflow/tfjs": "4.22.0",
+    "@tensorflow/tfjs-backend-wasm": "4.22.0",
+    "jpeg-js": "0.4.4",
+    "onnxruntime-web": "1.30.0"
+  }
+}

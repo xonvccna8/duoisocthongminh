@@ -1,0 +1,130 @@
+HỆ THỐNG ĐUỔI SÓC THÔNG MINH
+Giải pháp bảo vệ vườn sầu riêng bằng AI, âm thanh, ánh sáng và mùi hương
+=====================================================================
+
+
+I. TÍNH NĂNG
+---------------------------------------------------------------------
+
+1. Phát hiện sóc
+   - Cảm biến chuyển động PIR phát hiện vật thể ấm di chuyển trong vườn, kể cả ban đêm.
+   - Khi PIR kích hoạt, camera trên thiết bị chụp ảnh ngay để xác nhận đối tượng.
+   - Hệ thống chấm điểm từ 0 đến 100 cho khả năng đối tượng là sóc. Điểm dựa trên tín
+     hiệu PIR, khung giờ sóc hay xuất hiện (sáng sớm, chiều tối), chuyển động lặp lại
+     và mức thay đổi của khung hình. Chỉ khi điểm vượt ngưỡng cài đặt (mặc định 60)
+     hệ thống mới xua đuổi, giúp giảm báo nhầm do chim, lá cây hay người.
+   - Cảm biến ánh sáng xác định ngày hoặc đêm. Có thể cài đặt "chỉ hoạt động khi trời tối".
+
+2. Xua đuổi đa tác nhân
+   - Âm thanh: loa phát ngẫu nhiên nhiều loại tiếng (chó sủa, diều hâu, tiếng nổ...)
+     để sóc không quen với một âm cố định.
+   - Ánh sáng: đèn LED công suất nháy chớp liên tục.
+   - Mùi hương: bộ phun sương khuếch tán tinh dầu sóc không ưa.
+   - Từng tác nhân bật/tắt riêng được. Thời gian xua đuổi và thời gian nghỉ giữa
+     hai lần xua đều điều chỉnh được để tiết kiệm pin và tránh sóc quen tín hiệu.
+
+3. Hoạt động tự động bằng năng lượng mặt trời
+   - Pin mặt trời sạc cho pin dự phòng, thiết bị chạy liên tục ngày đêm ngoài vườn.
+   - Đo điện áp, dòng điện và phần trăm pin theo thời gian thực.
+   - Trang web chạy ngay trên thiết bị nên vườn không có Internet vẫn dùng được.
+
+4. Web giám sát và điều khiển
+   - Xem trạng thái hệ thống: đang canh gác, đang xua đuổi, tạm nghỉ, đã tắt.
+   - Xem camera trực tiếp và điểm nhận diện AI của lần phát hiện gần nhất.
+   - Điều khiển từ xa: bật/tắt canh gác, chọn chế độ tự động hoặc thủ công,
+     xua đuổi ngay, bật/tắt đèn, phun mùi, phát âm thanh, chỉnh âm lượng.
+   - Thống kê trong ngày: số lần phát hiện sóc, số lần xua đuổi, số chuyển động,
+     tỉ lệ chuyển động là sóc, lần cuối thấy sóc.
+   - Biểu đồ số lần sóc xuất hiện theo từng giờ và gợi ý khung giờ cần chú ý.
+   - Nhật ký sự kiện có ảnh chụp từng lần phát hiện, lọc theo loại sự kiện.
+   - Cảnh báo tức thì khi phát hiện sóc: thông báo trên màn hình, âm báo, rung điện thoại.
+   - Theo dõi tình trạng từng linh kiện (camera, loa, đồng hồ, cảm biến, thẻ nhớ).
+   - Cài đặt được lưu trong thiết bị, không mất khi mất điện.
+   - Giao diện tiếng Việt, dùng tốt trên điện thoại và máy tính, có chế độ sáng/tối.
+   - AI nhận diện sóc thật trên web (MobileNet v2): nút "Phân tích AI" kiểm tra khung
+     hình camera, khoanh vùng có sóc và hiện 5 dự đoán của mô hình; có thể thử với ảnh
+     mẫu hoặc ảnh tự chọn/chụp bằng điện thoại. Khi nối thiết bị thật, AI trên web chấm
+     lại ảnh của từng lần phát hiện để đối chiếu với điểm của thiết bị.
+   - Có chế độ demo mô phỏng để giới thiệu khi chưa có phần cứng. Trong demo, điểm và
+     khung nhận diện sóc do mô hình AI chấm thật trên ảnh.
+
+5. Lưu trữ dữ liệu
+   - Lưu ảnh mỗi lần phát hiện và nhật ký sự kiện (CSV) vào thẻ nhớ.
+   - Đồng hồ thời gian thực giữ đúng giờ khi mất điện. Thiết bị tự đồng bộ giờ
+     theo điện thoại khi người dùng mở web.
+
+
+II. VAI TRÒ
+---------------------------------------------------------------------
+
+1. Vai trò của từng thành phần trong hệ thống
+   - Cảm biến PIR: "mắt canh gác", phát hiện chuyển động và đánh thức hệ thống.
+   - Camera AI: xác nhận đối tượng có phải sóc hay không, lưu lại bằng chứng hình ảnh.
+   - Bộ xử lý ESP32-S3: "bộ não", chấm điểm, ra quyết định xua đuổi, điều khiển
+     thiết bị và phục vụ trang web.
+   - Loa, đèn LED, bộ phun mùi: cơ cấu xua đuổi sóc khỏi vườn.
+   - Cảm biến ánh sáng và đồng hồ: cung cấp bối cảnh ngày/đêm và thời gian.
+   - Pin mặt trời, pin dự phòng, mạch đo năng lượng: cấp nguồn độc lập và giám sát pin.
+   - Web giám sát: cầu nối giữa người dùng và thiết bị để theo dõi, điều khiển, thống kê.
+
+2. Vai trò đối với người sử dụng và xã hội
+   - Nhà vườn: bảo vệ trái sầu riêng, giảm thất thoát năng suất, giảm chi phí và
+     công sức canh giữ ban đêm.
+   - Người lao động: dễ theo dõi và vận hành qua điện thoại, không cần trực vườn liên tục.
+   - Nông nghiệp xanh: xua đuổi sóc mà không dùng bẫy hay hóa chất, không gây hại
+     động vật; dùng năng lượng mặt trời, thân thiện môi trường.
+   - Cộng đồng và học sinh: minh họa cách ứng dụng AI và IoT vào nông nghiệp thực tế,
+     có thể nhân rộng cho các loại cây ăn trái khác.
+
+
+III. CÔNG NGHỆ SỬ DỤNG
+---------------------------------------------------------------------
+
+1. Phần cứng
+   - Vi điều khiển: Freenove ESP32-S3-WROOM CAM (8 MB flash, 8 MB PSRAM, có sẵn camera).
+   - Camera: OV2640 / OV5640.
+   - Cảm biến chuyển động: PIR HC-SR501 (hoặc AM312).
+   - Cảm biến ánh sáng: BH1750.
+   - Đồng hồ thời gian thực: DS3231 (kèm cảm biến nhiệt độ).
+   - Đo điện áp, dòng điện: INA219.
+   - Âm thanh: module DFPlayer Mini + loa 3 W.
+   - Đèn LED 12 V và module phun sương siêu âm 5 V, điều khiển qua MOSFET IRLZ44N.
+   - Thẻ nhớ microSD (lưu ảnh và nhật ký).
+   - Nguồn: tấm pin mặt trời 18 V, bộ điều khiển sạc, pin 12 V (3S 18650 hoặc ắc quy),
+     mạch hạ áp LM2596 (12 V xuống 5 V).
+
+2. Phần mềm trên thiết bị (firmware)
+   - Ngôn ngữ C/C++ trên nền Arduino cho ESP32 (Arduino IDE).
+   - Thư viện: esp32-camera, WebServer, WiFi, mDNS, Preferences (lưu cài đặt), SD_MMC,
+     DFRobotDFPlayerMini, RTClib, BH1750, Adafruit INA219.
+   - Kết nối mạng: WiFi hai chế độ cùng lúc. Thiết bị tự phát WiFi riêng "DuoiSoc"
+     (vào http://192.168.4.1) và có thể kết nối WiFi nhà vườn (http://duoisoc.local).
+   - Giao tiếp: API dạng REST trả về JSON (trạng thái, nhật ký, điều khiển, cài đặt,
+     đồng bộ giờ), ảnh JPEG trực tiếp từ camera.
+   - Giao diện web và hình ảnh được nhúng thẳng vào firmware nên chạy không cần Internet.
+
+3. Trí tuệ nhân tạo
+   - Trên thiết bị: thuật toán chấm điểm nhận diện kết hợp nhiều tín hiệu (PIR, thời gian,
+     ánh sáng, mức thay đổi khung hình) chạy trực tiếp trên thiết bị (edge).
+   - Trên web: mô hình mạng nơ-ron MobileNet v2 (TensorFlow.js, học từ bộ ảnh ImageNet,
+     có lớp "sóc") chạy ngay trên trình duyệt. AI quét cả khung hình và 25 vùng nhỏ để
+     tính điểm 0-100 và khoanh vị trí sóc. Ảnh có sóc đạt khoảng 60-96 điểm, ảnh cây,
+     trái sầu riêng chỉ khoảng 3-14 điểm. Cần Internet để tải mô hình (~14 MB) lần đầu.
+   - Định hướng: huấn luyện mô hình nhận diện hình ảnh sóc bằng Edge Impulse /
+     TensorFlow Lite Micro trên bộ ảnh thu thập tại vườn, chạy trên ESP32-S3 để tăng
+     độ chính xác và giảm báo nhầm.
+
+4. Web giám sát
+   - HTML5, CSS3, JavaScript thuần, không dùng thư viện ngoài nên nhẹ và chạy được
+     ngoại tuyến trên thiết bị.
+   - Đồ họa: SVG (biểu đồ, biểu tượng), Canvas (khung camera mô phỏng).
+   - Web Audio API (âm báo), Vibration API (rung điện thoại).
+   - Thiết kế đáp ứng (responsive) cho điện thoại và máy tính, hỗ trợ chế độ sáng/tối.
+   - Bản giới thiệu công khai được triển khai trên nền tảng Vercel:
+     https://duoi-soc-thong-minh.vercel.app
+
+5. Công cụ phát triển
+   - Arduino IDE, Visual Studio Code.
+   - PowerShell script tự động đóng gói giao diện và ảnh vào firmware.
+   - Vercel CLI để triển khai web.
+   - Ảnh minh họa từ Wikimedia Commons (giấy phép CC0 / CC BY / CC BY-SA, có ghi nguồn).

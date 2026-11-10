@@ -1,0 +1,22 @@
+{
+  "regions": [
+    "sin1"
+  ],
+  "rewrites": [
+    {
+      "source": "/photo",
+      "destination": "/api/photo"
+    },
+    {
+      "source": "/capture",
+      "destination": "/api/capture"
+    }
+  ],
+  "functions": {
+    "api/ai.js": {
+      "memory": 1024,
+      "maxDuration": 30,
+      "includeFiles": "{node_modules/@tensorflow/tfjs-backend-wasm/dist/*.wasm,node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm},models/*.onnx}"
+    }
+  }
+}

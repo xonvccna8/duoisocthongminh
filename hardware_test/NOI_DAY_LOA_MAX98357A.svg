@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="840" viewBox="0 0 1240 840">
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #1f2933; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub   { font-size: 14px; fill: #52606d; }
+    .mt    { font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .ms    { font-size: 12px; fill: #52606d; text-anchor: middle; }
+    .pin   { font-size: 14px; font-weight: 700; fill: #334e68; }
+    .pinw  { font-size: 13px; font-weight: 800; fill: #ffffff; }
+    .pind  { font-size: 12px; font-weight: 600; fill: #b0bec5; }
+    .row   { font-size: 15px; }
+    .warn  { font-size: 13.5px; font-weight: 700; fill: #c62828; }
+    .w     { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .red { stroke: #d32f2f; } .blk { stroke: #212121; } .yel { stroke: #f9a825; } .grn { stroke: #2e7d32; }
+    .blu { stroke: #1e88e5; } .spk { stroke: #6a1b9a; }
+    .badge circle { fill: #ffffff; stroke: #1f2933; stroke-width: 2; }
+    .badge text { font-size: 13px; font-weight: 800; text-anchor: middle; }
+  </style>
+
+  <rect width="1240" height="840" fill="#ffffff"/>
+  <text x="40" y="46" class="title">NỐI LOA 4Ω 3W QUA MẠCH KHUẾCH ĐẠI MAX98357A (I2S)</text>
+  <text x="40" y="72" class="sub">Không cần DFPlayer, không cần điện trở. ESP32 đọc file WAV trên khe thẻ nhớ CỦA BOARD rồi gửi sang MAX98357A kéo loa.</text>
+
+  <!-- ESP32 -->
+  <rect x="60" y="120" width="290" height="340" rx="14" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+  <rect x="80" y="390" width="120" height="50" rx="6" fill="#cfd8dc" stroke="#78909c"/>
+  <text x="140" y="420" class="ms" style="fill:#37474f;font-weight:700">khe thẻ microSD</text>
+  <text x="270" y="415" class="mt" style="font-size:17px">ESP32-S3</text>
+  <text x="270" y="435" class="mt" style="font-size:17px">CAM</text>
+  <text x="335" y="185" class="pin" text-anchor="end">GPIO41</text>
+  <text x="335" y="220" class="pin" text-anchor="end">GPIO42</text>
+  <text x="335" y="255" class="pin" text-anchor="end">GPIO2</text>
+  <text x="335" y="360" class="pin" text-anchor="end">GND</text>
+  <text x="335" y="395" class="pin" text-anchor="end">5V</text>
+  <circle cx="350" cy="180" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="350" cy="215" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="350" cy="250" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="350" cy="355" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="350" cy="390" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+
+  <!-- MAX98357A: 7 chân hàng dọc bên trái, cọc loa bên phải -->
+  <rect x="640" y="150" width="190" height="270" rx="10" fill="#6a1b9a" stroke="#4a148c" stroke-width="2"/>
+  <rect x="720" y="250" width="40" height="40" rx="3" fill="#212121"/>
+  <text x="740" y="315" class="ms" style="fill:#e1bee7;font-weight:700">MAX98357A</text>
+  <g>
+    <circle cx="640" cy="180" r="7" fill="#ffca28"/><text x="652" y="185" class="pinw">LRC</text>
+    <circle cx="640" cy="215" r="7" fill="#ffca28"/><text x="652" y="220" class="pinw">BCLK</text>
+    <circle cx="640" cy="250" r="7" fill="#ffca28"/><text x="652" y="255" class="pinw">DIN</text>
+    <circle cx="640" cy="285" r="6" fill="#90a4ae"/><text x="652" y="290" class="pind">GAIN</text>
+    <circle cx="640" cy="320" r="6" fill="#90a4ae"/><text x="652" y="325" class="pind">SD</text>
+    <circle cx="640" cy="355" r="7" fill="#ffca28"/><text x="652" y="360" class="pinw">GND</text>
+    <circle cx="640" cy="390" r="7" fill="#ffca28"/><text x="652" y="395" class="pinw">VIN</text>
+  </g>
+  <rect x="815" y="200" width="30" height="110" rx="4" fill="#43a047" stroke="#1b5e20"/>
+  <circle cx="830" cy="225" r="7" fill="#ffca28"/><text x="805" y="230" class="pinw" text-anchor="end">+</text>
+  <circle cx="830" cy="285" r="7" fill="#ffca28"/><text x="805" y="290" class="pinw" text-anchor="end">−</text>
+  <text x="735" y="442" class="ms">GAIN, SD: để trống</text>
+
+  <!-- dây -->
+  <path d="M357 180H633" class="w grn"/>
+  <path d="M357 215H633" class="w blu"/>
+  <path d="M357 250H633" class="w yel"/>
+  <path d="M357 355H633" class="w blk"/>
+  <path d="M357 390H633" class="w red"/>
+  <text x="495" y="170" class="pin" style="fill:#2e7d32" text-anchor="middle">LRC</text>
+  <text x="495" y="205" class="pin" style="fill:#1e88e5" text-anchor="middle">BCLK</text>
+  <text x="495" y="240" class="pin" style="fill:#b7791f" text-anchor="middle">DIN</text>
+  <text x="495" y="345" class="pin" text-anchor="middle">GND</text>
+  <text x="495" y="380" class="pin" style="fill:#d32f2f" text-anchor="middle">5V</text>
+
+  <!-- loa -->
+  <path d="M837 225H960V470" class="w spk"/>
+  <path d="M837 285H920V470" class="w spk"/>
+  <rect x="895" y="470" width="90" height="18" rx="4" fill="#424242"/>
+  <circle cx="920" cy="479" r="5" fill="#ffca28"/><circle cx="960" cy="479" r="5" fill="#ffca28"/>
+  <path d="M885 488H995L1035 570H845Z" fill="#616161" stroke="#212121" stroke-width="2"/>
+  <ellipse cx="940" cy="570" rx="95" ry="15" fill="#9e9e9e" stroke="#212121" stroke-width="2"/>
+  <ellipse cx="940" cy="570" rx="36" ry="6" fill="#424242"/>
+  <text x="940" y="612" class="mt">LOA 4Ω 3W</text>
+
+  <g class="badge">
+    <circle cx="410" cy="180" r="14"/><text x="410" y="185">1</text>
+    <circle cx="410" cy="215" r="14"/><text x="410" y="220">2</text>
+    <circle cx="410" cy="250" r="14"/><text x="410" y="255">3</text>
+    <circle cx="410" cy="355" r="14"/><text x="410" y="360">4</text>
+    <circle cx="410" cy="390" r="14"/><text x="410" y="395">5</text>
+    <circle cx="890" cy="225" r="14"/><text x="890" y="230">6</text>
+    <circle cx="890" cy="285" r="14"/><text x="890" y="290">7</text>
+  </g>
+
+  <!-- thẻ nhớ -->
+  <rect x="60" y="500" width="700" height="150" rx="10" fill="#fffde7" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="78" y="528" class="pin">File âm thanh: thẻ microSD cắm vào khe CỦA BOARD ESP32 (thẻ đang lưu ảnh)</text>
+  <text x="78" y="554" class="row" style="font-size:13.5px">• Tạo thư mục <tspan font-weight="700">sound</tspan>, chép file tên <tspan font-weight="700">1.wav, 2.wav, 3.wav…</tspan> (đánh số liên tục từ 1)</text>
+  <text x="78" y="578" class="row" style="font-size:13.5px">• Định dạng: <tspan font-weight="700">WAV, 16-bit PCM, mono, 16000 Hz</tspan> (không dùng MP3)</text>
+  <text x="78" y="602" class="row" style="font-size:13.5px">• Đổi MP3 → WAV bằng Audacity: Tracks › Mix › Mix Stereo Down to Mono, Rate 16000,</text>
+  <text x="92" y="624" class="row" style="font-size:13.5px">File › Export › Export as WAV, chọn "Signed 16-bit PCM"</text>
+
+  <line x1="40" y1="676" x2="1200" y2="676" stroke="#d9e2ec" stroke-width="1.5"/>
+  <g class="row">
+    <text x="40" y="702"><tspan font-weight="800">1.</tspan> GPIO41 → LRC</text>
+    <text x="250" y="702"><tspan font-weight="800">2.</tspan> GPIO42 → BCLK</text>
+    <text x="470" y="702"><tspan font-weight="800">3.</tspan> GPIO2 → DIN</text>
+    <text x="670" y="702"><tspan font-weight="800">4.</tspan> GND → GND</text>
+    <text x="870" y="702"><tspan font-weight="800">5.</tspan> 5V → VIN</text>
+    <text x="40" y="728"><tspan font-weight="800">6.</tspan> Cọc (+) → dây loa 1</text>
+    <text x="300" y="728"><tspan font-weight="800">7.</tspan> Cọc (−) → dây loa 2</text>
+  </g>
+  <text x="40" y="762" class="warn">⚠ Cọc loa (+)/(−) KHÔNG nối GND hay nguồn – chỉ nối vào loa. VIN lấy 5V (không lấy 3V3) để loa đủ to.</text>
+  <text x="40" y="786" class="warn">⚠ Nối theo CHỮ IN trên mạch MAX98357A. GPIO2 nối cả đèn LED trên board: đèn nháy khi phát tiếng là bình thường.</text>
+  <text x="40" y="810" class="warn">⚠ Âm lượng để 20–22 trên web; to quá có thể làm sụt nguồn, ESP32 bị reset.</text>
+</svg>

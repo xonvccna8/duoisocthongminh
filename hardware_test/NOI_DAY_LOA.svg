@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="860" viewBox="0 0 1240 860">
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #1f2933; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub   { font-size: 14px; fill: #52606d; }
+    .mt    { font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .ms    { font-size: 12px; fill: #52606d; text-anchor: middle; }
+    .pin   { font-size: 14px; font-weight: 700; fill: #334e68; }
+    .pinw  { font-size: 13px; font-weight: 800; fill: #ffffff; }
+    .pind  { font-size: 12px; font-weight: 600; fill: #9fb3c8; }
+    .row   { font-size: 15px; }
+    .warn  { font-size: 13.5px; font-weight: 700; fill: #c62828; }
+    .w     { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .red { stroke: #d32f2f; } .blk { stroke: #212121; } .yel { stroke: #f9a825; } .grn { stroke: #2e7d32; }
+    .spk { stroke: #6a1b9a; }
+    .res   { fill: #fff3e0; stroke: #6d4c41; stroke-width: 2; }
+    .badge circle { fill: #ffffff; stroke: #1f2933; stroke-width: 2; }
+    .badge text { font-size: 13px; font-weight: 800; text-anchor: middle; }
+  </style>
+
+  <rect width="1240" height="860" fill="#ffffff"/>
+  <text x="40" y="46" class="title">NỐI LOA 4Ω 3W QUA MẠCH DFPlayer Mini VÀO ESP32-S3 CAM</text>
+  <text x="40" y="72" class="sub">ESP32 không kéo loa trực tiếp được. DFPlayer vừa đọc file MP3 trên thẻ nhớ, vừa có sẵn mạch khuếch đại 3W cho loa. Cần 1 điện trở 1kΩ.</text>
+
+  <!-- ESP32 -->
+  <rect x="60" y="100" width="270" height="330" rx="14" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="195" y="380" class="mt" style="font-size:18px">ESP32-S3 CAM</text>
+  <text x="195" y="402" class="ms">PIR, OLED, phun sương giữ nguyên</text>
+  <text x="315" y="130" class="pin" text-anchor="end">GND</text>
+  <text x="315" y="185" class="pin" text-anchor="end">5V</text>
+  <text x="315" y="220" class="pin" text-anchor="end">GPIO42 (TX)</text>
+  <text x="315" y="255" class="pin" text-anchor="end">GPIO41 (RX)</text>
+  <circle cx="330" cy="125" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="330" cy="180" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="330" cy="215" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+  <circle cx="330" cy="250" r="7" fill="#ffca28" stroke="#b7791f" stroke-width="1.5"/>
+
+  <!-- DFPlayer Mini: 8 chân mỗi bên, khe thẻ nhớ ở trên -->
+  <rect x="560" y="150" width="200" height="300" rx="8" fill="#1565c0" stroke="#0d47a1" stroke-width="2"/>
+  <rect x="610" y="150" width="100" height="22" rx="3" fill="#cfd8dc" stroke="#78909c"/>
+  <text x="660" y="166" class="ms" style="font-size:11px;fill:#37474f">khe thẻ microSD</text>
+  <text x="660" y="300" class="mt" style="fill:#fff">DFPlayer</text>
+  <text x="660" y="318" class="mt" style="fill:#fff">Mini</text>
+  <!-- chân trái -->
+  <g>
+    <circle cx="560" cy="180" r="7" fill="#ffca28"/><text x="572" y="185" class="pinw">VCC</text>
+    <circle cx="560" cy="215" r="7" fill="#ffca28"/><text x="572" y="220" class="pinw">RX</text>
+    <circle cx="560" cy="250" r="7" fill="#ffca28"/><text x="572" y="255" class="pinw">TX</text>
+    <circle cx="560" cy="285" r="6" fill="#90a4ae"/><text x="572" y="290" class="pind">DAC_R</text>
+    <circle cx="560" cy="320" r="6" fill="#90a4ae"/><text x="572" y="325" class="pind">DAC_L</text>
+    <circle cx="560" cy="355" r="7" fill="#ffca28"/><text x="572" y="360" class="pinw">SPK_1</text>
+    <circle cx="560" cy="390" r="6" fill="#90a4ae"/><text x="572" y="395" class="pind">GND</text>
+    <circle cx="560" cy="425" r="7" fill="#ffca28"/><text x="572" y="430" class="pinw">SPK_2</text>
+  </g>
+  <!-- chân phải -->
+  <g>
+    <circle cx="760" cy="180" r="6" fill="#90a4ae"/><text x="748" y="185" class="pind" text-anchor="end">BUSY</text>
+    <circle cx="760" cy="215" r="6" fill="#90a4ae"/><text x="748" y="220" class="pind" text-anchor="end">USB−</text>
+    <circle cx="760" cy="250" r="6" fill="#90a4ae"/><text x="748" y="255" class="pind" text-anchor="end">USB+</text>
+    <circle cx="760" cy="285" r="6" fill="#90a4ae"/><text x="748" y="290" class="pind" text-anchor="end">ADKEY2</text>
+    <circle cx="760" cy="320" r="6" fill="#90a4ae"/><text x="748" y="325" class="pind" text-anchor="end">ADKEY1</text>
+    <circle cx="760" cy="355" r="6" fill="#90a4ae"/><text x="748" y="360" class="pind" text-anchor="end">IO2</text>
+    <circle cx="760" cy="390" r="7" fill="#ffca28"/><text x="748" y="395" class="pinw" text-anchor="end">GND</text>
+    <circle cx="760" cy="425" r="6" fill="#90a4ae"/><text x="748" y="430" class="pind" text-anchor="end">IO1</text>
+  </g>
+  <text x="660" y="472" class="ms">chân xám: để trống, không nối</text>
+
+  <!-- dây nguồn + tín hiệu -->
+  <path d="M337 125H820V390H767" class="w blk"/>
+  <path d="M337 180H553" class="w red"/>
+  <path d="M337 215H420" class="w grn"/>
+  <rect x="420" y="205" width="60" height="20" rx="4" class="res"/>
+  <text x="450" y="200" class="pin" text-anchor="middle">1kΩ</text>
+  <path d="M480 215H553" class="w grn"/>
+  <path d="M337 250H553" class="w yel"/>
+
+  <text x="700" y="117" class="pin" text-anchor="middle">dây ĐEN (GND) – nối vào GND bên PHẢI</text>
+
+  <!-- loa -->
+  <path d="M553 355H470V600" class="w spk"/>
+  <path d="M553 425H520V600" class="w spk"/>
+  <rect x="440" y="600" width="110" height="18" rx="4" fill="#424242"/>
+  <circle cx="470" cy="609" r="5" fill="#ffca28"/><circle cx="520" cy="609" r="5" fill="#ffca28"/>
+  <path d="M430 618H560L600 700H390Z" fill="#616161" stroke="#212121" stroke-width="2"/>
+  <ellipse cx="495" cy="700" rx="105" ry="16" fill="#9e9e9e" stroke="#212121" stroke-width="2"/>
+  <ellipse cx="495" cy="700" rx="40" ry="7" fill="#424242"/>
+  <text x="495" y="742" class="mt">LOA 4Ω 3W</text>
+  <text x="620" y="645" class="ms" style="text-anchor:start">2 dây loa không phân cực:</text>
+  <text x="620" y="661" class="ms" style="text-anchor:start">đảo dây vẫn kêu bình thường</text>
+
+  <g class="badge">
+    <circle cx="380" cy="125" r="14"/><text x="380" y="130">1</text>
+    <circle cx="380" cy="180" r="14"/><text x="380" y="185">2</text>
+    <circle cx="380" cy="215" r="14"/><text x="380" y="220">3</text>
+    <circle cx="380" cy="250" r="14"/><text x="380" y="255">4</text>
+    <circle cx="470" cy="480" r="14"/><text x="470" y="485">5</text>
+    <circle cx="520" cy="520" r="14"/><text x="520" y="525">6</text>
+  </g>
+
+  <!-- thẻ nhớ -->
+  <rect x="860" y="150" width="330" height="200" rx="10" fill="#fffde7" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="878" y="178" class="pin">Thẻ microSD (≤ 32GB) cắm vào DFPlayer:</text>
+  <text x="878" y="204" class="row" style="font-size:13.5px">• Format FAT32</text>
+  <text x="878" y="228" class="row" style="font-size:13.5px">• Chép vào thư mục gốc, đặt tên:</text>
+  <text x="895" y="252" class="row" style="font-size:13.5px;font-weight:700">0001.mp3, 0002.mp3, 0003.mp3…</text>
+  <text x="878" y="276" class="row" style="font-size:13.5px">• Chép LẦN LƯỢT từng file (DFPlayer</text>
+  <text x="890" y="298" class="row" style="font-size:13.5px">đánh số theo thứ tự chép)</text>
+  <text x="878" y="322" class="row" style="font-size:13.5px">• Tiếng chó sủa, diều hâu, tiếng nổ…</text>
+
+  <line x1="40" y1="772" x2="1200" y2="772" stroke="#d9e2ec" stroke-width="1.5"/>
+  <g class="row">
+    <text x="40" y="798"><tspan font-weight="800">1.</tspan> GND ESP32 → GND (bên phải)</text>
+    <text x="330" y="798"><tspan font-weight="800">2.</tspan> 5V ESP32 → VCC</text>
+    <text x="560" y="798"><tspan font-weight="800">3.</tspan> GPIO42 → 1kΩ → RX</text>
+    <text x="820" y="798"><tspan font-weight="800">4.</tspan> GPIO41 → TX</text>
+    <text x="40" y="824"><tspan font-weight="800">5.</tspan> SPK_1 → dây loa 1</text>
+    <text x="330" y="824"><tspan font-weight="800">6.</tspan> SPK_2 → dây loa 2</text>
+  </g>
+  <text x="560" y="824" class="warn">⚠ SPK_1 / SPK_2 KHÔNG nối GND hay nguồn</text>
+  <text x="40" y="850" class="warn">⚠ Nhìn khe thẻ nhớ ở trên để xác định chân: VCC là chân trên cùng bên trái. Âm lượng để 20–22 để ESP32 không bị reset.</text>
+</svg>

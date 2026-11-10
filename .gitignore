@@ -1,0 +1,39 @@
+# Build artifacts
+.build/
+*.o
+*.d
+*.elf
+*.map
+*.a
+
+# Dependencies / local env
+node_modules/
+.vercel
+.env*
+.claude/
+
+# Logs
+*.log
+**/logs/
+
+# Secrets / keys
+*key*.txt
+*.pem
+*.credentials*
+credentials.json
+
+# Large AI datasets / training artifacts (keep code + small model weights)
+ai_soc/raw_images/
+ai_soc/dataset/images/
+ai_soc/preview/
+ai_soc/runs/
+**/__pycache__/
+*.pyc
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.vscode/
+.idea/

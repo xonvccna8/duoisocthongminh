@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="830" viewBox="0 0 1240 830">
+  <style>
+    text { font-family: "Segoe UI", Arial, sans-serif; fill: #1f2933; }
+    .title { font-size: 24px; font-weight: 700; }
+    .sub   { font-size: 14px; fill: #52606d; }
+    .sec   { font-size: 17px; font-weight: 800; fill: #1565c0; }
+    .mt    { font-size: 15px; font-weight: 700; text-anchor: middle; }
+    .ms    { font-size: 12px; fill: #52606d; text-anchor: middle; }
+    .wt    { font-size: 14px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+    .pinw  { font-size: 13px; font-weight: 700; fill: #ffe082; }
+    .pin   { font-size: 13px; font-weight: 700; fill: #334e68; }
+    .row   { font-size: 14px; }
+    .warn  { font-size: 13.5px; font-weight: 700; fill: #c62828; }
+    .w     { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .red { stroke: #d32f2f; } .blk { stroke: #212121; }
+    .cable { fill: none; stroke: #9e9e9e; stroke-width: 10; stroke-linecap: round; }
+    .badge circle { fill: #ffffff; stroke: #1f2933; stroke-width: 2; }
+    .badge text { font-size: 13px; font-weight: 800; text-anchor: middle; }
+  </style>
+  <defs>
+    <g id="bat">
+      <rect x="35" y="-15" width="40" height="15" rx="3" fill="#90a4ae"/>
+      <rect x="0" y="0" width="110" height="200" rx="16" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5"/>
+      <text x="55" y="28" class="mt" style="fill:#d32f2f;font-size:22px">+</text>
+      <text x="55" y="92" class="mt">PIN</text>
+      <text x="55" y="112" class="mt">3,7V</text>
+      <text x="55" y="132" class="ms">10000mAh</text>
+      <text x="55" y="188" class="mt" style="font-size:24px">−</text>
+    </g>
+    <g id="mist">
+      <rect x="0" y="0" width="170" height="100" rx="10" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+      <text x="85" y="45" class="wt" style="font-size:13px">MẠCH PHUN SƯƠNG</text>
+      <text x="85" y="64" class="wt" style="font-size:12px">(cổng Type-C)</text>
+      <path d="M170 50C200 50 205 60 215 60" fill="none" stroke="#616161" stroke-width="2"/>
+      <circle cx="232" cy="60" r="17" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="2"/>
+      <text x="232" y="95" class="ms">đĩa gốm</text>
+      <text x="232" y="110" class="ms">(trên tăm bông)</text>
+    </g>
+  </defs>
+
+  <rect width="1240" height="830" fill="#ffffff"/>
+  <text x="40" y="46" class="title">CHẠY PHUN SƯƠNG BẰNG PIN 3,7V 10000mAh + MẠCH SẠC 5V 2A</text>
+  <text x="40" y="72" class="sub">Nhìn mạch sạc của bạn: có CỔNG USB to (USB-A) thì làm CÁCH A (dễ nhất, không cần cắt cáp). Chỉ có chân OUT+ / OUT− thì làm CÁCH B.</text>
+
+  <!-- ================= CÁCH A ================= -->
+  <text x="40" y="104" class="sec">CÁCH A – mạch sạc có cổng USB ra 5V</text>
+  <use href="#bat" x="40" y="160"/>
+  <path d="M95 145V130H220V200H252" class="w red"/>
+  <path d="M95 360V380H220V300H252" class="w blk"/>
+
+  <rect x="250" y="160" width="230" height="180" rx="10" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="365" y="245" class="wt">MẠCH SẠC 5V 2A</text>
+  <circle cx="262" cy="200" r="7" fill="#ffca28"/><text x="276" y="205" class="pinw">B+</text>
+  <circle cx="262" cy="300" r="7" fill="#ffca28"/><text x="276" y="305" class="pinw">B−</text>
+  <rect x="470" y="222" width="34" height="56" rx="4" fill="#cfd8dc" stroke="#607d8b" stroke-width="2"/>
+  <rect x="478" y="232" width="18" height="36" fill="#37474f"/>
+  <text x="512" y="304" class="pin">cổng USB ra 5V</text>
+  <rect x="340" y="332" width="50" height="16" rx="4" fill="#9e9e9e"/>
+  <text x="365" y="370" class="ms">↑ cổng sạc: cắm sạc điện thoại để sạc pin</text>
+
+  <path d="M504 250H700" class="cable"/>
+  <rect x="700" y="240" width="30" height="20" rx="6" fill="#455a64"/>
+  <text x="605" y="232" class="pin" text-anchor="middle">cáp USB → Type-C</text>
+  <text x="605" y="276" class="ms">dùng nguyên dây, không cần cắt</text>
+  <use href="#mist" x="730" y="200"/>
+
+  <g class="badge">
+    <circle cx="160" cy="130" r="14"/><text x="160" y="135">1</text>
+    <circle cx="160" cy="380" r="14"/><text x="160" y="385">2</text>
+  </g>
+  <text x="40" y="420" class="row"><tspan font-weight="800">1.</tspan> Cực (+) pin → B+ · <tspan font-weight="800">2.</tspan> Cực (−) pin → B− · Sau đó cắm cáp USB → Type-C từ mạch sạc sang mạch phun sương. Bật/tắt: nút trên mạch sạc (nếu có) hoặc rút cáp.</text>
+
+  <line x1="40" y1="445" x2="1200" y2="445" stroke="#d9e2ec" stroke-width="1.5"/>
+
+  <!-- ================= CÁCH B ================= -->
+  <text x="40" y="468" class="sec">CÁCH B – mạch sạc chỉ có chân OUT+ / OUT−</text>
+  <use href="#bat" x="40" y="525"/>
+  <path d="M95 510V495H220V565H252" class="w red"/>
+  <path d="M95 725V745H220V665H252" class="w blk"/>
+
+  <rect x="250" y="525" width="230" height="180" rx="10" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+  <text x="365" y="620" class="wt">MẠCH SẠC 5V 2A</text>
+  <circle cx="262" cy="565" r="7" fill="#ffca28"/><text x="276" y="570" class="pinw">B+</text>
+  <circle cx="262" cy="665" r="7" fill="#ffca28"/><text x="276" y="670" class="pinw">B−</text>
+  <circle cx="468" cy="565" r="7" fill="#ffca28"/><text x="454" y="570" class="pinw" text-anchor="end">OUT+</text>
+  <circle cx="468" cy="665" r="7" fill="#ffca28"/><text x="454" y="670" class="pinw" text-anchor="end">OUT−</text>
+  <rect x="340" y="697" width="50" height="16" rx="4" fill="#9e9e9e"/>
+  <text x="365" y="735" class="ms">↑ cổng sạc: cắm sạc điện thoại để sạc pin</text>
+
+  <path d="M476 565H550" class="w red"/>
+  <rect x="550" y="540" width="80" height="50" rx="8" fill="#ffffff" stroke="#486581" stroke-width="2"/>
+  <text x="590" y="570" class="ms" style="font-weight:700;fill:#1f2933">CÔNG TẮC</text>
+  <path d="M630 565H770L800 605" class="w red"/>
+  <path d="M476 665H770L800 625" class="w blk"/>
+  <path d="M800 615H880" class="cable"/>
+  <rect x="880" y="605" width="30" height="20" rx="6" fill="#455a64"/>
+  <text x="700" y="553" class="pin" style="fill:#d32f2f" text-anchor="middle">dây ĐỎ</text>
+  <text x="700" y="690" class="pin" text-anchor="middle">dây ĐEN</text>
+  <text x="845" y="650" class="ms">cáp Type-C</text>
+  <text x="845" y="665" class="ms">đã cắt đầu kia</text>
+  <use href="#mist" x="910" y="565"/>
+
+  <g class="badge">
+    <circle cx="160" cy="495" r="14"/><text x="160" y="500">1</text>
+    <circle cx="160" cy="745" r="14"/><text x="160" y="750">2</text>
+    <circle cx="515" cy="565" r="14"/><text x="515" y="570">3</text>
+    <circle cx="660" cy="565" r="14"/><text x="660" y="570">4</text>
+    <circle cx="620" cy="665" r="14"/><text x="620" y="670">5</text>
+  </g>
+  <text x="40" y="785" class="row"><tspan font-weight="800">1.</tspan> Pin (+) → B+ · <tspan font-weight="800">2.</tspan> Pin (−) → B− · <tspan font-weight="800">3.</tspan> OUT+ → công tắc · <tspan font-weight="800">4.</tspan> Công tắc → dây ĐỎ cáp Type-C · <tspan font-weight="800">5.</tspan> OUT− → dây ĐEN cáp Type-C</text>
+  <text x="40" y="815" class="warn">⚠ Trước khi cắm phun sương: đo cổng ra phải được 5V. Khi gắn thêm ESP32 để tự động phun, dây ĐEN đi qua MOSFET – xem hình NOI_DAY_PIN_PHUN_SUONG.png.</text>
+</svg>

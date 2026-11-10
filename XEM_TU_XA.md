@@ -45,8 +45,24 @@ PIR báo chuyển động → ESP32 chụp ảnh → POST /api/ai (Vercel) → A
 - **Đổi cài đặt** (ngưỡng điểm, thời gian xua...) chỉ làm được trên web của thiết bị trong vườn; web từ xa chỉ xem.
 - **Giờ** được lấy tự động qua Internet (giờ Việt Nam), không cần đồng bộ từ điện thoại.
 - **Bảo mật:** thiết bị tự sinh **khóa thiết bị** ngẫu nhiên lần đầu gửi lên; web chỉ nhận dữ liệu từ đúng khóa đó. Lệnh điều khiển cần PIN, sai 10 lần thì khóa 10 phút. Ai có link web đều **xem** được trạng thái và ảnh.
-- **Đổi sang board khác** (khóa thiết bị khác): xóa khóa cũ trong kho Upstash (khóa `ds:devkey`) rồi board mới gửi lên sẽ được nhận.
+- **Đổi sang board khác / nạp lại firmware xóa sạch bộ nhớ** (khóa thiết bị khác, web báo lỗi 403): trên web thiết bị → **Internet** → gõ lại **đúng mã PIN cũ** → Lưu. Mã PIN khớp thì web tự nhận board mới. Quên PIN cũ: xóa khóa `ds:devkey` trong kho Upstash.
 - **Hạn mức miễn phí** Upstash khoảng 500.000 lệnh/tháng: đủ cho 1 thiết bị gửi 60 giây/lần cả tháng và xem vài giờ mỗi ngày.
+
+## Web báo "Thiết bị offline"
+
+Web Vercel **không nối thẳng** với board: nó chỉ hiện bản số liệu board tự gửi lên gần nhất. "Offline · N giờ" nghĩa là board đã N giờ không gửi lên được, các số trên trang là **bản cũ** (web hiện khung tím giải thích).
+
+| Thấy gì | Lý do | Cách sửa |
+|---|---|---|
+| Board tắt, OLED không sáng | mất điện / hết pin | cấp điện lại |
+| Mục Internet (192.168.4.1): *sai mật khẩu WiFi* / *không thấy WiFi này* | đổi mật khẩu, WiFi 5 GHz, board ở xa | nhập lại WiFi 2,4 GHz rồi Lưu |
+| Mục Internet: *không ra được Internet (loi gui -1)* | modem mất mạng | kiểm tra modem/router |
+| Mục Internet hoặc web Vercel: *khác khóa thiết bị (403)* | thay board / nạp lại xóa flash | nhập lại **đúng mã PIN cũ** rồi Lưu |
+
+Board tự phục hồi, không cần người ra vườn bấm reset:
+- Mất WiFi nhà: cứ **30 giây** tự gọi vào lại (chế độ tự nối lại của ESP32 có khi bỏ cuộc sau khi router khởi động lại).
+- Gửi lỗi: thử lại sau 10, 20 … tối đa 60 giây, bỏ kết nối HTTPS cũ để mở mới.
+- Có WiFi mà **30 phút** liền không gửi được, hoặc tác vụ gửi bị treo **5 phút**: tự khởi động lại board (chỉ lúc đang rảnh, không đang xua đuổi).
 
 ## Các API (web/api)
 

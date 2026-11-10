@@ -857,7 +857,8 @@ function setupConnection(){
   if(location.protocol==='https:'){App.remote=true;App.base='';return}
   if(location.protocol==='file:'){showWaiting('<b>Chưa kết nối thiết bị</b> – bấm Kết nối và nhập địa chỉ IP của thiết bị.');setTimeout(()=>$('#btnOpenConnect').click(),500)}
 }
-function localOnly(){const loc=!App.remote;$('#btnNet').hidden=!loc;$('#btnSync').hidden=App.remote}
+function localOnly(){const loc=!App.remote;$('#btnNet').hidden=!loc;$('#btnSync').hidden=App.remote;
+  $('#btnOpenConnect').style.display=App.remote?'none':''}   // trang https không gọi thẳng được board http trong mạng nhà (trình duyệt chặn)
 // Chưa có số liệu thật từ thiết bị: chỉ báo đang chờ, KHÔNG hiện số liệu giả
 function showWaiting(html){App.waitDevice=true;$('#demoText').innerHTML=html;$('#demoBanner').classList.add('show');localOnly()}
 function hideWaiting(){if(!App.waitDevice)return;App.waitDevice=false;$('#demoBanner').classList.remove('show')}
@@ -897,6 +898,23 @@ function askPin(){
   const p=prompt('Nhập mã PIN điều khiển từ xa (đặt trên web của thiết bị, mục Internet):');
   if(!p)return false;App.pin=p.trim();store.set('pin',App.pin);return true;
 }
+// Xem từ xa mà thiết bị không gửi lên nữa: nói rõ số liệu là bản cũ, lý do có thể và cách sửa
+function offlineHelp(st){
+  if(st.rejectAgo!=null&&st.rejectAgo<300)
+    return '<b>Có board đang gửi lên nhưng bị từ chối</b> vì khác khóa thiết bị (đã thay board hoặc nạp lại firmware xóa sạch bộ nhớ). '
+      +(st.rejectPin?'Mã PIN trên board <b>không khớp</b> PIN cũ. ':'')
+      +'Cách sửa: vào WiFi <b>DuoiSoc</b> → mở <b>192.168.4.1</b> → nút <b>Internet</b> → nhập lại <b>đúng mã PIN cũ</b> → Lưu. Web tự nhận board này sau vài giây.';
+  return (st.age!=null?`<b>Thiết bị không gửi dữ liệu đã ${fDur(st.age)}</b> – số liệu bên dưới là bản cũ. `:'<b>Chưa thấy thiết bị gửi dữ liệu lên.</b> ')
+    +'Kiểm tra: ① board còn điện (đèn sáng, màn OLED chạy); ② WiFi nhà còn Internet, là WiFi <b>2,4 GHz</b>, chưa đổi mật khẩu; '
+    +'③ điện thoại vào WiFi <b>DuoiSoc</b> (mật khẩu 12345678) → mở <b>192.168.4.1</b> → nút <b>Internet</b> để xem lỗi cụ thể. '
+    +'Board tự thử vào lại WiFi mỗi 30 giây, có điện + WiFi là trang này tự cập nhật.';
+}
+function showOffline(html){
+  if(App.waitDevice)return;
+  if($('#demoText').innerHTML!==html)$('#demoText').innerHTML=html;
+  if(!App.offBanner){App.offBanner=true;$('#demoBanner').classList.add('show');localOnly()}
+}
+function hideOffline(){if(!App.offBanner)return;App.offBanner=false;$('#demoBanner').classList.remove('show')}
 // Xem từ xa: dữ liệu là bản thiết bị gửi lên cách đây st.age giây
 function setRemote(st){
   const d=$('#connDot'),t=$('#connText'),off=st.age>150;
@@ -906,6 +924,7 @@ function setRemote(st){
   else if(st.ip&&!off){const u='http://'+st.ip;if(h.dataset.u!==u){h.dataset.u=u;h.innerHTML=`Ở nhà xem mượt hơn: <a href="${u}" target="_blank" rel="noopener" style="color:#ffe066">${st.ip}</a>`}}
   d.className='dot '+(off?'off':'on');
   t.textContent=off?'Thiết bị offline · '+fDur(st.age):'Từ xa · '+(st.age<8?'vừa cập nhật':st.age+' giây');
+  off?showOffline(offlineHelp(st)):hideOffline();
 }
 function setOnline(ok){
   const d=$('#connDot'),t=$('#connText');
@@ -925,7 +944,7 @@ async function poll(){
     // Web Vercel mà thiết bị chưa gửi dữ liệu lên: chỉ báo chờ (không số liệu giả), vẫn hỏi lại 4 giây/lần,
     // thiết bị gửi lên là tự hiện số liệu thật
     if(App.remote&&!App.st&&(e.status>=400||App.fails>=1)&&!App.waitDevice){
-      showWaiting('<b>Chưa thấy thiết bị gửi dữ liệu lên.</b> Cho thiết bị vào WiFi nhà có Internet (web thiết bị 192.168.4.1 → nút <b>Internet</b>); trang tự hiện số liệu thật khi có.');
+      showWaiting(offlineHelp(e.data||{}));
       hideSplash();
     }
     if(++App.fails>=2){setOnline(false);
@@ -1193,7 +1212,11 @@ $('#dlgSettings').addEventListener('close',()=>{
 /* ---------------- Internet (WiFi nhà vườn + PIN, chỉ khi mở web trên thiết bị) ---------------- */
 function renderNet(n){
   $('#fSsid').value=n.ssid||'';$('#fPass').value='';$('#fPin').value='';$('#netUrl').textContent=n.url||'web';
-  const cl={ok:'đang gửi lên Internet',tat:'tắt'}[n.cloud]||n.cloud;
+  const c=String(n.cloud||'');
+  const cl={ok:'đang gửi lên Internet',tat:'tắt'}[c]||(
+    c.startsWith('sai khoa')?'web từ chối vì khác khóa thiết bị (thay board / nạp lại) – gõ lại <u>đúng mã PIN cũ</u> vào ô PIN rồi bấm Lưu':
+    /^loi gui -\d+$/.test(c)?'không ra được Internet ('+c+'): kiểm tra modem/router còn mạng':
+    /^loi gui 5\d\d$/.test(c)?'web Vercel đang lỗi ('+c+'), board tự thử lại':c);
   $('#netInfo').innerHTML=n.sta?`Đã vào WiFi <b>${n.ssid}</b> (${n.ip}) · Internet: <b>${cl}</b>`+(n.pushAgo>=0?` · gửi lần cuối ${fDur(n.pushAgo)} trước`:'')
     :(n.ssid?`Chưa vào được WiFi <b>${n.ssid}</b> – `+(
         n.why==='sai-mat-khau'?'<b>sai mật khẩu WiFi</b>, gõ lại mật khẩu rồi bấm Lưu':

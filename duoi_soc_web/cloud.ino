@@ -14,6 +14,10 @@ String devKey, pinHash;                     // khóa thiết bị (tự sinh, l�
 volatile bool cloudFast = false, pushNow = false, ntpDone = false;
 volatile uint32_t lastPushMs = 0;
 char cloudState[48] = "chua co WiFi";
+// Tự phục hồi khi mất kết nối lâu (board để ngoài vườn, không ai bấm nút reset):
+volatile uint32_t cloudBeat = 0;            // tác vụ nền "còn sống" lúc nào (loop() kiểm tra, treo quá lâu thì khởi động lại)
+volatile uint32_t failSinceMs = 0;          // bắt đầu gửi lỗi liên tục từ lúc nào (0 = đang gửi được)
+volatile uint8_t pushFails = 0;             // số lần gửi lỗi liên tiếp
 
 SemaphoreHandle_t cloudMx;
 volatile bool wantPayload = false, payloadReady = false;
@@ -150,10 +154,17 @@ bool pushStatus() {
   if (code == 200) {
     parseReply(resp);
     lastPushMs = millis();
+    pushFails = 0;
+    failSinceMs = 0;
     strlcpy(cloudState, "ok", sizeof(cloudState));
     return true;
   }
+  // 403: web đang gắn với board khác (thay board / nạp lại xóa sạch flash).
+  // Cách sửa: web thiết bị -> Internet -> nhập lại ĐÚNG mã PIN cũ -> máy chủ nhận board này.
   snprintf(cloudState, sizeof(cloudState), code == 403 ? "sai khoa thiet bi (403)" : "loi gui %d", code);
+  if (!pushFails) failSinceMs = millis();
+  if (pushFails < 255) pushFails++;
+  if (pushFails >= 3) { http.end(); tls.stop(); }   // lỗi liên tiếp: bỏ kết nối HTTPS cũ (có thể đã chết), lần sau mở mới
   return false;
 }
 
@@ -184,22 +195,51 @@ const uint32_t LIVE_GAP_MS = 250;   // có người xem: gửi ảnh camera liê
 const uint32_t LIVE_GAP_RELAY_MS = 2000;
 extern volatile uint8_t streamClients;
 
+// Mất WiFi nhà quá lâu: tự gọi vào lại. Chế độ tự nối lại của ESP32 có khi bỏ cuộc (router khởi động lại,
+// mất điện lâu, lỗi xác thực một lần...) và board đứng ngoài Internet mãi cho tới khi có người reset.
+const uint32_t WIFI_RETRY_MS = 30000;
+// Có WiFi mà vẫn không gửi được lên web suốt 30 phút -> khởi động lại board (lúc đang rảnh) để làm sạch WiFi/HTTPS.
+const uint32_t CLOUD_REBOOT_MS = 30UL * 60 * 1000;
+
+void wifiRetry() {
+  static uint32_t lastTry = 0, lostAt = 0;
+  if (WiFi.status() == WL_CONNECTED) { lostAt = 0; return; }
+  if (!lostAt) lostAt = millis();
+  if (millis() - lostAt < WIFI_RETRY_MS || millis() - lastTry < WIFI_RETRY_MS) return;
+  String s = prefs.getString("wssid", WIFI_SSID), p = prefs.getString("wpass", WIFI_PASS);
+  if (!s.length()) return;
+  lastTry = millis();
+  Serial.printf("[WIFI] Mat WiFi '%s', thu ket noi lai\n", s.c_str());
+  WiFi.disconnect();                       // chỉ ngắt WiFi nhà, WiFi riêng DuoiSoc vẫn phát
+  vTaskDelay(pdMS_TO_TICKS(200));
+  WiFi.begin(s.c_str(), p.c_str());
+}
+
 void cloudTask(void *) {
   tls.setInsecure();   // không kiểm tra chứng chỉ (đủ dùng cho mô hình; dữ liệu vẫn được mã hóa)
   http.setReuse(true);
   uint32_t lastLive = 0;
   for (;;) {
+    cloudBeat = millis();
     if (WiFi.status() != WL_CONNECTED) {
       strlcpy(cloudState, prefs.isKey("wssid") || strlen(WIFI_SSID) ? "dang vao WiFi" : "chua co WiFi", sizeof(cloudState));
+      wifiRetry();
+      pushNow = true;   // vào lại được WiFi là gửi ngay
       vTaskDelay(pdMS_TO_TICKS(2000));
       continue;
     }
-    if (pushNow || !lastPushMs || millis() - lastPushMs >= (cloudFast ? 5000UL : 60000UL)) {
+    wifiRetry();
+    // Gửi lỗi thì thử lại sau 10 s, 20 s ... tối đa 60 s (không thử HTTPS dồn dập làm board nặng)
+    uint32_t every = cloudFast ? 5000 : 60000;
+    if (pushFails) every = pushFails >= 6 ? 60000 : 10000 * (uint32_t)pushFails;
+    static uint32_t lastTryMs = 0;
+    if (pushNow || !lastTryMs || millis() - lastTryMs >= every) {
       pushNow = false;
-      if (!pushStatus() && !lastPushMs) vTaskDelay(pdMS_TO_TICKS(5000));   // chưa gửi được lần nào: chờ rồi thử lại
+      lastTryMs = millis();
+      pushStatus();
     }
     uint32_t gap = streamClients ? LIVE_GAP_RELAY_MS : LIVE_GAP_MS;
-    if (cloudFast && lastPushMs && millis() - lastLive >= gap) { lastLive = millis(); uploadLive(); }
+    if (cloudFast && !pushFails && lastPushMs && millis() - lastLive >= gap) { lastLive = millis(); uploadLive(); }
     while (photoTail != photoHead) {
       uploadEventPhoto(photoQ[photoTail]);
       photoTail = (photoTail + 1) % 8;
@@ -209,6 +249,7 @@ void cloudTask(void *) {
 }
 
 void cloudBegin() {
+  cloudBeat = millis();
   devKey = prefs.getString("devkey", "");
   if (devKey.length() < 32) {   // lần đầu: tự sinh khóa thiết bị ngẫu nhiên, lưu mãi trong board
     char k[33];
@@ -264,6 +305,19 @@ void cloudLoop() {
     if (!ntpDone) { ntpDone = true; checkDayRollover(); Serial.println("[GIO] Da lay gio qua Internet"); }
   }
   if (!strlen(CLOUD_URL)) return;
+  // Tự cứu khi không ai ở bên cạnh board (chỉ khởi động lại lúc đang rảnh, không đang xua đuổi):
+  //  - tác vụ gửi nền không chạy quá 5 phút (bị treo)
+  //  - có WiFi nhà nhưng 30 phút liền không gửi được lên web
+  if (state == ST_IDLE) {
+    bool hung = millis() - cloudBeat > 5UL * 60 * 1000;
+    bool stuck = WiFi.status() == WL_CONNECTED && pushFails >= 3 && millis() - failSinceMs > CLOUD_REBOOT_MS &&
+                 strncmp(cloudState, "sai khoa", 8);   // sai khóa thiết bị: khởi động lại cũng không hết, chờ nhập PIN
+    if (hung || stuck) {
+      Serial.printf("[TU XA] %s -> khoi dong lai board\n", hung ? "Tac vu gui bi treo" : "30 phut khong gui duoc len web");
+      delay(200);
+      ESP.restart();
+    }
+  }
   if (lastEventId != lastEv) { lastEv = lastEventId; pushNow = true; }   // có sự kiện mới: gửi ngay
   if (wantPayload && !payloadReady) {
     String p = "{\"status\":" + statusJson() + ",\"events\":" + eventsJson() + ",\"pinHash\":\"" + pinHash + "\"}";
